@@ -1,0 +1,44 @@
+{
+  "name": "graeseed-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "pg": "^8.11.0",
+    "sequelize": "^6.31.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.40.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-node": "^11.1.0",
+    "prettier": "^2.8.8"
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "plugin:node/recommended"
+    ],
+    "rules": {
+      "node/no-unsupported-features/es-syntax": [
+        "error",
+        {
+          "ignores": [
+            "modules"
+          ]
+        }
+      ],
+      "node/no-unpublished-require": "off",
+      "node/no-extraneous-require": "off"
+    }
+  }
+}
