@@ -6,6 +6,7 @@ const swaggerUi = require("swagger-ui-express")
 const db = require("./config/dbConfig")
 const CONFIG = require("./config/config")
 const options = require("./config/swaggerOption")
+const productRouter = require("./routes/product.router")
 
 const app = express();
 db.connect()
@@ -16,6 +17,9 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(specs)
 )
+
+app.use(express.json())
+app.use("/api/product/", productRouter)
 
 app.get("/", (req, res) => {
     res.status(200).send("welcome to express")

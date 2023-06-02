@@ -1,4 +1,4 @@
-const { Client } = require("pg");
+const { Client } = require("pg")
 const CONFIG = require("./config")
 
 let client;
@@ -30,10 +30,14 @@ async function disconnect() {
     }
 }
 
+function getClient() {
+    return client;
+}
+
 module.exports = {
     connect,
     disconnect,
-    getClient: () => client,
+    getClient
 }
 
 
