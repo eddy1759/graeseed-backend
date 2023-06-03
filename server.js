@@ -5,11 +5,11 @@ const swaggerUi = require("swagger-ui-express")
 
 const db = require("./config/dbConfig")
 const CONFIG = require("./config/config")
+const createProductTable  = require("./model/product")
 const options = require("./config/swaggerOption")
 const productRouter = require("./routes/product.router")
 
 const app = express();
-db.connect()
 
 const specs = swaggerJsdoc(options)
 app.use(
@@ -29,7 +29,10 @@ app.listen(CONFIG.PORT, () => {
     console.log("Server running on port: ", CONFIG.PORT)
 })
 
-// Gracefully disconnect from the database when the process is terminated
+db.connect()
+createProductTable()
+
+// Disconnect from the database when the process is terminated
 // eslint-disable-next-line no-undef
 process.on("SIGINT", async () => {
     try {
