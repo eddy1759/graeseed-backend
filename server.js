@@ -19,7 +19,7 @@ app.use(
 )
 
 app.use(express.json())
-app.use("/api/product/", productRouter)
+app.use("/graemart-api/v1/product", productRouter)
 
 app.get("/", (req, res) => {
     res.status(200).send("welcome to express")

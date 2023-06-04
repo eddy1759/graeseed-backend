@@ -4,17 +4,18 @@ const { getClient } = require("../config/dbConfig")
 
 const createProductAndInvoice = async (req, res) => {
     try {
-        const { userId, products } = req.body;
+        const { products } = req.body
+        const username = req.user
     
         // Fetch the user details from the database
         const userQuery = "SELECT * FROM users_user WHERE id = $1";
-        const userResult = await getClient().query(userQuery, [userId]);
+        const userResult = await getClient().query(userQuery, [username]);
         const user = userResult.rows[0];
     
         if (!user) {
           return res.status(404).json({ error: "User not found" });
         }
-    
+        const userId = user.id
         // Insert the products into the database
         const createdProducts = await insertProducts(products, userId);
     
@@ -55,7 +56,52 @@ const getAllPrdouct =  async (req, res) => {
     }
 }
 
+// Retrieve products based on user ID
+const getProductByUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const selectQuery = "SELECT * FROM product WHERE userId = $1";
+    const result = await getClient().query(selectQuery, [id]);
+    const products = result.rows;
+    res.status(200).json({ products });
+  } catch (error) {
+    console.error("An error occurred retrieving products", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+
+// Delete product based on user ID
+const deleteProductByUser =  async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleteQuery = "DELETE FROM product WHERE userId = $1";
+    await getClient().query(deleteQuery, [id]);
+    res.status(200).json({ message: "Products deleted successfully" });
+  } catch (error) {
+    console.error("An error occurred deleting products", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+
+const getProductWithUserDetails =  async (req, res) => {
+  try {
+    const { id } = req.params;
+    const selectQuery = "SELECT p.*, u.name AS user_name, u.email AS user_email FROM product p INNER JOIN users_user u ON p.userId = u.id WHERE p.userId = $1";
+    const result = await getClient().query(selectQuery, [id]);
+    const products = result.rows;
+    res.status(200).json({ products });
+  } catch (error) {
+    console.error("An error occurred retrieving and populating products", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+
 module.exports = {
     createProductAndInvoice,
-    getAllPrdouct
+    getAllPrdouct,
+    getProductByUser,
+    deleteProductByUser,
+    getProductWithUserDetails
 }
