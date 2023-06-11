@@ -1,5 +1,6 @@
 const insertProducts = require("../services/product.service")
 const { getClient } = require("../config/dbConfig")
+const { calculateVAT, deliveryFee } = require("../utils/helper")
 
 
 const createProductAndInvoice = async (req, res) => {
@@ -8,7 +9,7 @@ const createProductAndInvoice = async (req, res) => {
         const username = req.user
     
         // Fetch the user details from the database
-        const userQuery = "SELECT * FROM users_user WHERE id = $1";
+        const userQuery = "SELECT * FROM users_user WHERE username = $1";
         const userResult = await getClient().query(userQuery, [username]);
         const user = userResult.rows[0];
     
@@ -25,6 +26,8 @@ const createProductAndInvoice = async (req, res) => {
             totalPrice += createdProduct.price * createdProduct.quantity;
         }
 
+        const vat = parseFloat(calculateVAT(totalPrice))
+
         // Create the invoice
         const invoice = {
             items: createdProducts.map((product) => ({
@@ -32,7 +35,9 @@ const createProductAndInvoice = async (req, res) => {
                 price: product.price,
                 quantity: product.quantity,
             })),
-            totalPrice,
+            subtotal: totalPrice,
+            deliveryFee: deliveryFee,
+            Total: totalPrice + deliveryFee + vat
         }
     
         // Return the invoice
@@ -97,6 +102,8 @@ const getProductWithUserDetails =  async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 }
+
+
 
 module.exports = {
     createProductAndInvoice,

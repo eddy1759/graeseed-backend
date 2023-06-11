@@ -17,6 +17,10 @@ async function createProductTable() {
     } catch (error) {
       console.error("An error occurred while creating the Product table", error);
     }
-  }
+}
+
+
+
   
 module.exports = createProductTable
+

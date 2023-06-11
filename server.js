@@ -8,6 +8,7 @@ const CONFIG = require("./config/config")
 const createProductTable  = require("./model/product")
 const options = require("./config/swaggerOption")
 const productRouter = require("./routes/product.router")
+const paymentRouter = require("./routes/payment.router")
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(
 
 app.use(express.json())
 app.use("/graemart-api/v1/product", productRouter)
+app.use("/graemart-api/v1/payment", paymentRouter)
 
 app.get("/", (req, res) => {
     res.status(200).send("welcome to express")

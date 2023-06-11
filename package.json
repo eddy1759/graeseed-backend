@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start:dev": "node server.js",
+    "start": "node server.js",
+    "start:dev": "nodemon server.js",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },
@@ -24,6 +25,7 @@
     "eslint": "^8.40.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-node": "^11.1.0",
+    "nodemon": "^2.0.22",
     "prettier": "^2.8.8"
   },
   "eslintConfig": {

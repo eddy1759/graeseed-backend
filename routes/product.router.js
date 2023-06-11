@@ -8,6 +8,8 @@ const { createProductAndInvoice,
 
 } = require("../controller/product.controller")
 
+
+
 const { authenticateMW, paramIsValidId } = require("../middleware/index")
 
 const router = express.Router()
