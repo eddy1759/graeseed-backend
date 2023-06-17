@@ -43,34 +43,30 @@ const router = express.Router()
  *         userId:
  *           type: integer
  *           description: ID of the user
- *         items:
+ *         product:
  *           type: array
  *           description: List of items
  *           items:
  *             $ref: '#/components/schemas/Product'
- *         totalPrice:
- *           type: number
- *           description: Total price of the invoice
  *     Payment:
  *       type: object
  *       properties:
- *         invoiceId:
- *           type: integer
- *           description: ID of the invoice
- *         amount:
+ *         cardName:
+ *           type: string
+ *           description: The debit card name
+ *         cardNumber:
  *           type: number
- *           description: Amount of the payment
- *         paymentMethod:
- *           type: string
- *           description: Payment method used
- *     ErrorResponse:
- *       type: object
- *       properties:
- *         error:
- *           type: string
- *           description: Error message
+ *           description: The debit card number
+ *         month:
+ *           type: integer
+ *           description: card expiring month
+ *         year:
+ *           type: integer
+ *           description: card expiring year
+ *         cc:
+ *           type: integer
+ *           description: card cvv
  */
-
 
 
 /**
