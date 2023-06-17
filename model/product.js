@@ -8,7 +8,6 @@ async function createProductTable() {
           id SERIAL PRIMARY KEY,
           name VARCHAR(255) NOT NULL,
           price FLOAT NOT NULL,
-          quantity INTEGER NOT NULL,
           userId INTEGER NOT NULL REFERENCES users_user(id)
         )
       `;

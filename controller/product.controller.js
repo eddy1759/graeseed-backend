@@ -33,7 +33,6 @@ const createProductAndInvoice = async (req, res) => {
             items: createdProducts.map((product) => ({
                 name: product.name,
                 price: product.price,
-                quantity: product.quantity,
             })),
             subtotal: totalPrice,
             deliveryFee: deliveryFee,

@@ -31,9 +31,6 @@ const router = express.Router()
  *         price:
  *           type: number
  *           description: Price of the product
- *         quantity:
- *           type: integer
- *           description: Quantity of the product
  *         userId:
  *           type: integer
  *           description: ID of the user associated with the product
@@ -96,9 +93,6 @@ const router = express.Router()
  *                     name:
  *                       type: string
  *                       description: Name of the item
- *                     qty:
- *                       type: integer
- *                       description: Quantity of the item
  *                     price:
  *                       type: number
  *                       description: Price of the item
