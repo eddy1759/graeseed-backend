@@ -37,7 +37,40 @@ const router = express.Router()
  *         userId:
  *           type: integer
  *           description: ID of the user associated with the product
+ *     Invoice:
+ *       type: object
+ *       properties:
+ *         userId:
+ *           type: integer
+ *           description: ID of the user
+ *         items:
+ *           type: array
+ *           description: List of items
+ *           items:
+ *             $ref: '#/components/schemas/Product'
+ *         totalPrice:
+ *           type: number
+ *           description: Total price of the invoice
+ *     Payment:
+ *       type: object
+ *       properties:
+ *         invoiceId:
+ *           type: integer
+ *           description: ID of the invoice
+ *         amount:
+ *           type: number
+ *           description: Amount of the payment
+ *         paymentMethod:
+ *           type: string
+ *           description: Payment method used
+ *     ErrorResponse:
+ *       type: object
+ *       properties:
+ *         error:
+ *           type: string
+ *           description: Error message
  */
+
 
 
 /**
@@ -46,6 +79,8 @@ const router = express.Router()
  *   post:
  *     summary: Generate invoice
  *     description: Create an invoice for the specified user and items
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -173,6 +208,8 @@ router.get("/:id", paramIsValidId, getProductByUser)
  *   delete:
  *     summary: Delete product based on user ID
  *     description: Deletes all products associated with the provided user ID.
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: userId
@@ -195,6 +232,8 @@ router.delete("/:id", paramIsValidId, deleteProductByUser)
  *   get:
  *     summary: Retrieve and populate products by user ID
  *     description: Retrieves a list of products and populates them with user details based on the provided user ID.
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: userId

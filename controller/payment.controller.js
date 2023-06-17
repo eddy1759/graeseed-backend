@@ -5,18 +5,18 @@ const paymentHandler =  (req, res) => {
         const { cardName, cardNumber, month, year, cvv } = req.body;
   
         // Validate the card details
-        const validation = validateCardDetails(cardName, cardNumber, month, year, cvv);
+        const validation = validateCardDetails(cardName, cardNumber, month, year, cvv)
         if (!validation.valid) {
-        res.status(400).json({ error: validation.error });
-        return;
+            return res.status(400).json({ error: validation.error });
+        
         }
     
         const paymentProcessed = true;
     
         if (paymentProcessed) {
-        res.json({ message: "Payment successful" });
+            res.json({ message: "Payment successful" });
         } else {
-        res.status(500).json({ error: "Payment processing failed" });
+            res.status(500).json({ error: "Payment processing failed" });
         }
     } catch (error) {
         console.error(error)
